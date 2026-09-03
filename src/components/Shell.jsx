@@ -25,6 +25,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 
 import AddIcon from '@mui/icons-material/Add'
 import DarkModeIcon from '@mui/icons-material/DarkModeOutlined'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMoreOutlined'
 import DashboardIcon from '@mui/icons-material/SpaceDashboardOutlined'
 import FlagIcon from '@mui/icons-material/OutlinedFlag'
 import InventoryIcon from '@mui/icons-material/Inventory2Outlined'
@@ -150,6 +151,43 @@ export function Shell({ mode, onToggleMode }) {
         </Box>
         <Divider />
         <Box sx={{ p: 2 }}>
+          {/* Login system: current store, switch store, sign out — lives in
+              the sidebar instead of the top bar so it travels with the nav. */}
+          <Button
+            fullWidth
+            onClick={(e) => setStoreMenu(e.currentTarget)}
+            sx={{
+              justifyContent: 'flex-start',
+              textAlign: 'left',
+              color: 'text.primary',
+              textTransform: 'none',
+              px: 1,
+              py: 0.75,
+              mb: 1.5,
+              border: 1,
+              borderColor: 'divider',
+            }}
+            startIcon={
+              <Avatar
+                src={store?.logoUrl}
+                variant="rounded"
+                sx={{ width: 34, height: 34, bgcolor: 'primary.main', fontSize: 14 }}
+              >
+                {store?.name?.[0] || '?'}
+              </Avatar>
+            }
+          >
+            <Box sx={{ minWidth: 0, flex: 1 }}>
+              <Typography variant="body2" noWrap sx={{ fontWeight: 600 }}>
+                {store?.name || 'Nessun negozio'}
+              </Typography>
+              <Typography variant="caption" color="text.secondary" noWrap display="block">
+                {store ? `${store.city} · ${store.region}` : '—'}
+              </Typography>
+            </Box>
+            <ExpandMoreIcon fontSize="small" sx={{ color: 'text.secondary' }} />
+          </Button>
+
           <Button
             fullWidth
             variant="contained"
@@ -169,7 +207,7 @@ export function Shell({ mode, onToggleMode }) {
         </Box>
       </Box>
     ),
-    [badges],
+    [badges, store, stores, storeMenu],
   )
 
   return (
@@ -195,28 +233,9 @@ export function Shell({ mode, onToggleMode }) {
             <MenuIcon />
           </IconButton>
 
-          <Button
-            onClick={(e) => setStoreMenu(e.currentTarget)}
-            sx={{ textAlign: 'left', color: 'text.primary', minWidth: 0 }}
-            startIcon={
-              <Avatar
-                src={store?.logoUrl}
-                variant="rounded"
-                sx={{ width: 30, height: 30, bgcolor: 'primary.main', fontSize: 13 }}
-              >
-                {store?.name?.[0] || '?'}
-              </Avatar>
-            }
-          >
-            <Box sx={{ minWidth: 0 }}>
-              <Typography variant="body2" noWrap sx={{ fontWeight: 600 }}>
-                {store?.name || 'Nessun negozio'}
-              </Typography>
-              <Typography variant="caption" color="text.secondary" noWrap display="block">
-                {store ? `${store.city} · ${store.region}` : '—'}
-              </Typography>
-            </Box>
-          </Button>
+          <Typography variant="subtitle1" sx={{ fontWeight: 600, display: { xs: 'block', md: 'none' } }} noWrap>
+            {store?.name || 'Nessun negozio'}
+          </Typography>
           <Menu anchorEl={storeMenu} open={Boolean(storeMenu)} onClose={() => setStoreMenu(null)}>
             <Typography variant="overline" sx={{ px: 2, color: 'text.secondary' }}>
               Cambia negozio
