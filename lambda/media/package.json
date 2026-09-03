@@ -1,0 +1,9 @@
+{
+  "name": "gestionale-media",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Lambda /media — il runtime nodejs20.x include i client AWS SDK v3 ma non il presigner, che va installato qui prima di terraform apply (npm install --omit=dev).",
+  "dependencies": {
+    "@aws-sdk/s3-request-presigner": "^3.700.0"
+  }
+}

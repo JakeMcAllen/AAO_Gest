@@ -1,0 +1,9 @@
+{
+  "name": "gestionale-listings",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Lambda /listings - firma le copertine su S3: il presigner non e' incluso nel runtime nodejs20.x e va installato qui (npm install --omit=dev).",
+  "dependencies": {
+    "@aws-sdk/s3-request-presigner": "^3.700.0"
+  }
+}
